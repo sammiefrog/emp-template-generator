@@ -46,13 +46,19 @@ function inquireQ(){
     inquirer
     .prompt(questions)
     .then(function(response) {
+
+        let info = [];
+        info.push(response);
+
         if(response.role === "Manager"){
             inquirer.prompt({
             type: "input",
             message: "What is your office number?",
             name: "officeNum"
             }).then(function(managerOffice){
-                console.log(managerOffice);
+                info.push(managerOffice);
+                console.log(info);
+                render(info);
             })
         }
         else if(response.role === "Engineer"){
@@ -61,7 +67,9 @@ function inquireQ(){
             message: "What is your github user name??",
             name: "github"
             }).then(function(engineerGH){
-                console.log(engineerGH);
+                info.push(engineerGH);
+                console.log(info);
+                render(info);
             })
         }
         else if(response.role === "Intern"){
@@ -70,12 +78,16 @@ function inquireQ(){
             message: "What school did you attend?",
             name: "school"
             }).then(function(internSchool){
-                console.log(internSchool);
+                info.push(internSchool);
+                console.log(info);
+                render(info);
             })
         }
+    
     });
-}
 
+
+}
 inquireQ();
 
 // After the user has input all employees desired, call the `render` function (required
@@ -87,6 +99,17 @@ inquireQ();
 // `output` folder. You can use the variable `outputPath` above target this location.
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
+function writeFile(){
+    fs.writeFile("team.html", template, function (err) {
+  
+        if (err) {
+            return console.log(err);
+        }
+        console.log("Success!");
+  
+      });
+}
+
 
 // HINT: each employee type (manager, engineer, or intern) has slightly different
 // information; write your code to ask different questions via inquirer depending on
