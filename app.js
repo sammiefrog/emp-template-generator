@@ -110,10 +110,10 @@ function inquireQ(){
     break;
         case "Finish team":
             if (team.length > 0){
-                render(team);
+                console.log("all done!")
             }
             else{
-                console.log("There's no team members!");
+                console.log("no team members");
             }
         break;
 
