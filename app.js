@@ -13,6 +13,7 @@ const render = require("./lib/htmlRenderer");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
+let team = [];
 
 const questions = [{
       type: "input",
@@ -43,9 +44,7 @@ const questions = [{
     }
 ];
 
-
 function inquireQ(){
-    let team = [];
 
     inquirer
     .prompt([
@@ -110,10 +109,12 @@ function inquireQ(){
     break;
         case "Finish team":
             if (team.length > 0){
+                render(team);
                 console.log("all done!")
             }
             else{
                 console.log("no team members");
+                inquireQ();
             }
         break;
 
