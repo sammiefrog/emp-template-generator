@@ -35,12 +35,6 @@ const questions = [{
         message: "What type of employee are you?",
         choices: ['Manager', 'Engineer', 'Intern'],
         name: "role"
-    },
-    {
-        type: "list",
-        message: "Number of Employees:",
-        choices: [1, 2, 3, "No more Employees"],
-        name: "numOfEmps"
     }
 ];
 
@@ -55,14 +49,13 @@ function inquireQ(){
             choices: ["Build team", "Finish team"],
             name: "moreTeam"
         }
-    ]).then(function (response) {
-        const moreTeam = response.moreTeam;
+    ]).then(function (res) {
+        const moreTeam = res.moreTeam;
         switch (moreTeam) {
+
         case "Build team":
         inquirer.prompt(questions)
         .then(function(response) {
-
-        // info.push(response);
 
         if(response.role === "Manager"){
             inquirer.prompt({
@@ -148,6 +141,7 @@ function writeHTML(render){
   
     });
 }
+console.log(writeHTML);
 
 
 // HINT: each employee type (manager, engineer, or intern) has slightly different
