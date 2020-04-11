@@ -12,6 +12,8 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+
+
 const questions = [{
       type: "input",
       message: "What is your full name?",
@@ -43,12 +45,25 @@ const questions = [{
 
 
 function inquireQ(){
-    inquirer
-    .prompt(questions)
-    .then(function(response) {
+    let team = [];
 
-        let info = [];
-        info.push(response);
+    inquirer
+    .prompt([
+        // build or finish
+        {
+            type: "list",
+            message: "What would you like to do?",
+            choices: ["Build team", "Finish team"],
+            name: "moreTeam"
+        }
+    ]).then(function (response) {
+        const moreTeam = response.moreTeam;
+        switch (moreTeam) {
+        case "Build team":
+        inquirer.prompt(questions)
+        .then(function(response) {
+
+        // info.push(response);
 
         if(response.role === "Manager"){
             inquirer.prompt({
@@ -56,9 +71,11 @@ function inquireQ(){
             message: "What is your office number?",
             name: "officeNum"
             }).then(function(managerOffice){
-                info.push(managerOffice);
-                console.log(info);
-                render(info);
+                var newManager = new Manager(response.fullName, response.id, response.email, response.role, managerOffice.officeNum);
+                team.push(newManager);
+                console.log(team);
+                inquireQ();
+
             })
         }
         else if(response.role === "Engineer"){
@@ -67,10 +84,11 @@ function inquireQ(){
             message: "What is your github user name??",
             name: "github"
             }).then(function(engineerGH){
-                info.push(engineerGH);
-                console.log(info);
-                render(info);
-            })
+                var newEngineer = new Engineer(response.fullName, response.id, response.email, response.role, engineerGH.github);
+                team.push(newEngineer);
+                inquireQ();
+
+            });
         }
         else if(response.role === "Intern"){
             inquirer.prompt({
@@ -78,16 +96,35 @@ function inquireQ(){
             message: "What school did you attend?",
             name: "school"
             }).then(function(internSchool){
-                info.push(internSchool);
-                console.log(info);
-                render(info);
-            })
+                var newIntern = new Intern(response.fullName, response.id, response.email, response.role, internSchool.school);
+                team.push(newIntern);
+                console.log(team);
+                inquireQ();
+
+            });
         }
-    
-    });
+        
 
+        });
+        
+    break;
+        case "Finish team":
+            if (team.length > 0){
+                render(team);
+            }
+            else{
+                console.log("There's no team members!");
+            }
+        break;
 
+        default:
+        break;
+        //end of switch
+    }
+});
 }
+
+
 inquireQ();
 
 // After the user has input all employees desired, call the `render` function (required
@@ -99,15 +136,16 @@ inquireQ();
 // `output` folder. You can use the variable `outputPath` above target this location.
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
-function writeFile(){
-    fs.writeFile("team.html", template, function (err) {
+
+function writeHTML(render){
+    fs.writeFile(outputPath, template, function (err) {
   
         if (err) {
             return console.log(err);
         }
         console.log("Success!");
   
-      });
+    });
 }
 
 
