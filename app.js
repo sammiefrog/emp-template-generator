@@ -62,7 +62,7 @@ const inquireQ = () => {
             message: "What is your office number?",
             name: "officeNum"
             }).then(managerOffice => { 
-                var newManager = new Manager(response.fullName, response.id, response.email, managerOffice.officeNum);
+                let newManager = new Manager(response.fullName, response.id, response.email, managerOffice.officeNum);
                 team.push(newManager);
                 console.log(team);
                 inquireQ();
@@ -74,7 +74,7 @@ const inquireQ = () => {
             message: "What is your github user name??",
             name: "github"
             }).then(engineerGH => {
-                var newEngineer = new Engineer(response.fullName, response.id, response.email, engineerGH.github);
+                let newEngineer = new Engineer(response.fullName, response.id, response.email, engineerGH.github);
                 team.push(newEngineer);
                 inquireQ();
             });
@@ -85,7 +85,7 @@ const inquireQ = () => {
             message: "What school did you attend?",
             name: "school"
             }).then(internSchool => {
-                var newIntern = new Intern(response.fullName, response.id, response.email, internSchool.school);
+                let newIntern = new Intern(response.fullName, response.id, response.email, internSchool.school);
                 team.push(newIntern);
                 console.log(team);
                 inquireQ();
@@ -116,7 +116,7 @@ const inquireQ = () => {
 
 //writing a file to the output path, with the html that was rendered
 const writeHTML = HTML => {
-    fs.writeFileSync(outputPath, HTML, function (err) {
+    fs.writeFileSync(outputPath, HTML, err => {
         if (err) {
             return console.log(err);
         }  
