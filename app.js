@@ -10,11 +10,9 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
-
+//empty array 'team' holds the employee objects as they're made
 let team = [];
-
+//the questions all employees must answer
 const questions = [{
       type: "input",
       message: "What is your full name?",
@@ -39,10 +37,9 @@ const questions = [{
 ];
 
 function inquireQ(){
-
     inquirer
     .prompt([
-        // build or finish
+        // build or finish sets up switch case
         {
             type: "list",
             message: "What would you like to do?",
@@ -51,12 +48,12 @@ function inquireQ(){
         }
     ]).then(function (res) {
         const moreTeam = res.moreTeam;
+        //switch case dependent on whether user picks build team or finish
         switch (moreTeam) {
-
         case "Build team":
         inquirer.prompt(questions)
         .then(function(response) {
-
+            //adds three separate questions based on role response
         if(response.role === "Manager"){
             inquirer.prompt({
             type: "input",
@@ -67,7 +64,6 @@ function inquireQ(){
                 team.push(newManager);
                 console.log(team);
                 inquireQ();
-
             })
         }
         else if(response.role === "Engineer"){
@@ -79,7 +75,6 @@ function inquireQ(){
                 var newEngineer = new Engineer(response.fullName, response.id, response.email, engineerGH.github);
                 team.push(newEngineer);
                 inquireQ();
-
             });
         }
         else if(response.role === "Intern"){
@@ -92,16 +87,15 @@ function inquireQ(){
                 team.push(newIntern);
                 console.log(team);
                 inquireQ();
-
             });
         }
-        
-
+        //each role above pushes an object to array 'team'
         });
-        
+        //end of first case
     break;
         case "Finish team":
             if (team.length > 0){
+                //calling the function to make html page with the info from render()
                 writeHTML(render(team));
                 console.log("All done!")
             }
@@ -118,8 +112,7 @@ function inquireQ(){
 });
 }
 
-inquireQ();
-
+//writing a file to the output path, with the html that was rendered
 function writeHTML(HTML){
     fs.writeFileSync(outputPath, HTML, function (err) {
         if (err) {
@@ -127,3 +120,6 @@ function writeHTML(HTML){
         }  
     });
 }
+//calling the inquire function
+inquireQ();
+
