@@ -1,3 +1,4 @@
+//Global Variables
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -12,6 +13,7 @@ const render = require("./lib/htmlRenderer");
 
 //empty array 'team' holds the employee objects as they're made
 let team = [];
+
 //the questions all employees must answer
 const questions = [{
       type: "input",
@@ -36,7 +38,7 @@ const questions = [{
     }
 ];
 
-function inquireQ(){
+const inquireQ = () => {
     inquirer
     .prompt([
         // build or finish sets up switch case
@@ -46,20 +48,20 @@ function inquireQ(){
             choices: ["Build team", "Finish team"],
             name: "moreTeam"
         }
-    ]).then(function (res) {
+    ]).then(res => {
         const moreTeam = res.moreTeam;
         //switch case dependent on whether user picks build team or finish
         switch (moreTeam) {
         case "Build team":
         inquirer.prompt(questions)
-        .then(function(response) {
+        .then(response => {
             //adds three separate questions based on role response
         if(response.role === "Manager"){
             inquirer.prompt({
             type: "input",
             message: "What is your office number?",
             name: "officeNum"
-            }).then(function(managerOffice){
+            }).then(managerOffice => { 
                 var newManager = new Manager(response.fullName, response.id, response.email, managerOffice.officeNum);
                 team.push(newManager);
                 console.log(team);
@@ -71,7 +73,7 @@ function inquireQ(){
             type: "input",
             message: "What is your github user name??",
             name: "github"
-            }).then(function(engineerGH){
+            }).then(engineerGH => {
                 var newEngineer = new Engineer(response.fullName, response.id, response.email, engineerGH.github);
                 team.push(newEngineer);
                 inquireQ();
@@ -82,7 +84,7 @@ function inquireQ(){
             type: "input",
             message: "What school did you attend?",
             name: "school"
-            }).then(function(internSchool){
+            }).then(internSchool => {
                 var newIntern = new Intern(response.fullName, response.id, response.email, internSchool.school);
                 team.push(newIntern);
                 console.log(team);
@@ -113,7 +115,7 @@ function inquireQ(){
 }
 
 //writing a file to the output path, with the html that was rendered
-function writeHTML(HTML){
+const writeHTML = HTML => {
     fs.writeFileSync(outputPath, HTML, function (err) {
         if (err) {
             return console.log(err);
