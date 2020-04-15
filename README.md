@@ -34,10 +34,10 @@ Use is to build an HTML page displaying all members of a work team.
 <li>LinkedIn: www.linkedin.com/in/sammantha-sasenick412</li> 
 
 <h2 id= "screenshots">Screenshots</h2>
-<img src="assets/images/capt1.png">
-<img src="assets/images/capt2.png">
-<img src="assets/images/capt3.png">
+<img src="assets/images/capt1.png" alt="photo of the app working">
+<img src="assets/images/capt2.png" alt="photo of the app working">
+<img src="assets/images/capt3.png" alt="photo of the app working">
 
     
 <h2 id= "tests">Tests</h2>
- 
+<img src="assets\images\test.gif" alt="gif of the app being tested">
