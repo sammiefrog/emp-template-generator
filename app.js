@@ -1,34 +1,59 @@
-//Global Variables
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
-const inquirer = require("inquirer");
+//importing internal packages
 const path = require("path");
 const fs = require("fs");
 
+//internal class modules
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+const render = require("./lib/htmlRenderer");
+
+//external npm packages installed
+const inquirer = require("inquirer");
+const validator = require("validator");
+
+//output paths
 const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-const render = require("./lib/htmlRenderer");
 
-//empty array 'team' holds the employee objects as they're made
+//empty global array 'team' holds the employee objects as they're made
 let team = [];
 
 //the questions all employees must answer
 const questions = [{
       type: "input",
       message: "What is your full name?",
-      name: "fullName"
+      name: "fullName",
+      validate: value => {
+        var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+        if (!regName.test(value)) {
+            return "'Please enter your first & last name";
+        }
+        return true;
+        }
     },
     {
       type: "input",
       message: "What is your employee id?",
-      name: "id"
+      name: "id",
+      validate: value => {
+        if (validator.isInt(value)) {
+            return true;
+        }
+        return "Please enter a valid ID Number.";
+    }
     },
     {
       type: "input",
       message: "Please enter your email:",
-      name: "email"
+      name: "email",
+      validate: value => {
+        if (validator.isEmail(value)) {
+            return true;
+        }
+        return "Please enter a valid e-mail address.";
+    }
     },
     {
         type: "list",
@@ -60,7 +85,13 @@ const inquireQ = () => {
             inquirer.prompt({
             type: "input",
             message: "What is your office number?",
-            name: "officeNum"
+            name: "officeNum",
+            validate: value => {
+                if (validator.isInt(value)) {
+                    return true;
+                }
+                return "Please enter a valid office number.";
+            }
             }).then(managerOffice => { 
                 let newManager = new Manager(response.fullName, response.id, response.email, managerOffice.officeNum);
                 team.push(newManager);
@@ -83,7 +114,13 @@ const inquireQ = () => {
             inquirer.prompt({
             type: "input",
             message: "What school did you attend?",
-            name: "school"
+            name: "school",
+            validate: value => {
+                if (validator.isAlpha(value)) {
+                    return true;
+                }
+                return "Please enter a valid college / university.";
+            }
             }).then(internSchool => {
                 let newIntern = new Intern(response.fullName, response.id, response.email, internSchool.school);
                 team.push(newIntern);
