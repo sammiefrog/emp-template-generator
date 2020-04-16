@@ -15,11 +15,14 @@
 <li><a href="#tests">Tests</a></li> 
   
 <h2 id= "description">Description</h2>
-This is a command-line application to generate an html page of a work team. 
+This is a command-line application to generate an html page of a work team. Packages used include inquire for questions, and validator for user validation.
   
 <h2 id= "installation">Installation</h2>
-Fork this repo, clone it to your machine, npm i, run node app.js
-    
+<li>Fork this repo </li>
+<li>Clone it to your machine</li>
+<li>Install dependencies using 'npm i'</li>
+<li>Run 'node app.js' in the terminal</li>
+
 <h2 id= "technology">Technology Stack</h2>
  Node.Js, JavaScript, GIT, GitHub, Command- Line
   
@@ -35,9 +38,8 @@ Use is to build an HTML page displaying all members of a work team.
 
 <h2 id= "screenshots">Screenshots</h2>
 <img src="assets/images/capt1.png" alt="photo of the app working">
-<img src="assets/images/capt2.png" alt="photo of the app working">
-<img src="assets/images/capt3.png" alt="photo of the app working">
+<img src="assets/images/capture4.png" alt="photo of the app working">
 
     
-<h2 id= "tests">Tests</h2>
-<img src="assets\images\test.gif" alt="gif of the app being tested">
+<h2 id= "tests">Tests</h2> 
+<imgsrc="assets\images\test.gif" alt="gif of the app being tested">
