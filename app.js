@@ -23,7 +23,7 @@ let team = [];
 //the questions all employees must answer
 const questions = [{
       type: "input",
-      message: "What is your full name?",
+      message: "Please enter employee's full name:",
       name: "fullName",
       validate: value => {
         var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
@@ -35,7 +35,7 @@ const questions = [{
     },
     {
       type: "input",
-      message: "What is your employee id?",
+      message: "Please employee's id numer:",
       name: "id",
       validate: value => {
         if (validator.isInt(value)) {
@@ -46,7 +46,7 @@ const questions = [{
     },
     {
       type: "input",
-      message: "Please enter your email:",
+      message: "Please enter employee's email:",
       name: "email",
       validate: value => {
         if (validator.isEmail(value)) {
@@ -57,7 +57,7 @@ const questions = [{
     },
     {
         type: "list",
-        message: "What type of employee are you?",
+        message: "Select employee's role:",
         choices: ['Manager', 'Engineer', 'Intern'],
         name: "role"
     }
@@ -84,7 +84,7 @@ const inquireQ = () => {
         if(response.role === "Manager"){
             inquirer.prompt({
             type: "input",
-            message: "What is your office number?",
+            message: "What is the manager's office number?",
             name: "officeNum",
             validate: value => {
                 if (validator.isInt(value)) {
@@ -102,7 +102,7 @@ const inquireQ = () => {
         else if(response.role === "Engineer"){
             inquirer.prompt({
             type: "input",
-            message: "What is your github user name??",
+            message: "What is the engineer's github user name??",
             name: "github",
             validate: value => {
                 var regExp =  /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
@@ -120,7 +120,7 @@ const inquireQ = () => {
         else if(response.role === "Intern"){
             inquirer.prompt({
             type: "input",
-            message: "What school did you attend?",
+            message: "What school did this intern attend?",
             name: "school"
             }).then(internSchool => {
                 let newIntern = new Intern(response.fullName, response.id, response.email, internSchool.school);

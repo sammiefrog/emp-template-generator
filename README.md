@@ -42,4 +42,4 @@ Use is to build an HTML page displaying all members of a work team.
 
     
 <h2 id= "tests">Tests</h2> 
-<imgsrc="assets\images\test.gif" alt="gif of the app being tested">
+<img src="assets\images\test.gif" alt="gif of the app being tested">
